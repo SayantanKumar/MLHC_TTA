@@ -1,0 +1,31 @@
+{
+  "man_loc": "/Users/kumars33/Desktop/TTA/tts_dsv31_251016/man_annotations/",
+
+  "ref_locs": [
+    "/Users/kumars33/Desktop/TTA/Textual_tabular_alignment-main/LLM_TTS/jcw_uid_glm51/matched_renamed_bsv/"
+  ],
+
+  "pilot_names": [
+    "uid_glm51_mv3"
+  ],
+
+  "man_suffix": ".bsv",
+  "ref_suffix": ".bsv",
+
+  "event_match": true,
+  "use_lap": true,
+  "use_legacy_concordance": false,
+
+  "out": {
+    "relfolder": "matches/",
+    "folder": "/tmp/",
+    "event_out_locs": "/tmp/event_outputs/"
+  },
+  "distance": {
+    "method": "embedding_cosine",
+    "threshold": 0.1
+  },
+  "event_match_files": [
+  ]
+}
+

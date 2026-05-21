@@ -1,0 +1,22 @@
+{
+  "man_loc": "/path/to/manual/annotations/",
+  "ref_locs": [
+    "/path/to/reference/annotations1/",
+    "/path/to/reference/annotations2/"
+  ],
+  "pilot_names": [
+    "Model_Version_1",
+    "Model_Version_2"
+  ],
+  "event_match": true,
+  "out": {
+    "relfolder": "matches/",
+    "folder": "/tmp/",
+    "event_out_locs": "/tmp/event_outputs/"
+  },
+  "distance": {
+    "method": "embedding_cosine",
+    "threshold": 0.1
+  },
+  "event_match_files": []
+}

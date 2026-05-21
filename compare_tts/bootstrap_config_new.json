@@ -1,0 +1,36 @@
+{
+"man_loc": "/Users/kumars33/Desktop/TTA/tts_dsv31_251016/scripts/reformat_manual/updated_man_v2/",
+  "ref_locs": [
+    "/Users/kumars33/Desktop/TTA/Textual_tabular_alignment-main/LLM_TTS/multistep/DeepSeek_R1/clean_bsv_multimodal/"
+  ],
+
+  "pilot_names": ["DSR1"],
+
+  "match_files": {
+    "DSR1": "/Users/kumars33/Desktop/TTA/Textual_tabular_alignment-main/LLM_TTS/multistep/DeepSeek_R1/clean_bsv_multimodal/matches/best_matches2026-04-07.csv"
+  },
+
+  "man_suffix": ".bsv",
+  "ref_suffix": ".bsv",
+  "approach": "strcmp",
+  "use_lap": true,
+  "event_match": false,
+
+  "distance": {
+    "method": "embedding_cosine",
+    "threshold": 0.1
+  },
+
+  "out": {
+    "relfolder": "matches/",
+    "folder": "/tmp/",
+    "event_out_locs": "/tmp/event_outputs/"
+  },
+
+  "bootstrap": {
+    "n_boot": 200,
+    "ci_alpha": 0.05,
+    "seed": 1,
+    "out_csv": "bootstrap_summary.csv"
+  }
+}
