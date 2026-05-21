@@ -1,0 +1,64 @@
+**Task:** Extract events from the case report.
+Events are findings or mentions **about the individual** that could involve or affect the health of the patient and that are temporally located.
+For each event, provide:
+- The event
+- A referent central event (from the provided list), which is an event that serves as a temporal reference
+- Time difference in hours (negative for before, positive for after the central event)
+- A confidence score about the time difference (0: low, 9: high)
+
+**Guidelines:**
+1. Include all events except those listed in 'central events', even if in discussion
+2. Do not omit any events. Include termination and discontinuation events.
+3. Include pertinent negative findings (e.g., "no shortness of breath")
+4. Separate conjunctive phrases into component events (e.g., "fever and rash" or "fever, rash" becomes "fever", "rash")
+5. Contextual phrases may be reapplied across component events (e.g. "new onset of fever and rash" becomes "new onset of fever" and "new onset of rash")
+6. For events with duration, use the start of the time interval as the event time
+7. Use your expert clinical judgment to approximate timing when not explicitly stated
+8. Output must be in BSV (Bar-Separated Values) format
+9. No additional text or explanations - only the BSV data
+
+**Example Input:**
+Case report:
+An 18-year-old male was admitted to the hospital with a 3-day history of fever and rash. Four weeks ago, he was diagnosed with acne and received the treatment with minocycline, 100 mg daily, for 3 weeks. With increased WBC count, eosinophilia, and systemic involvement, this patient was diagnosed with DRESS syndrome. The fever and rash persisted through admission, and diffuse erythematous or maculopapular eruption with pruritus was present. One day later the patient was discharged, and the rash resolved two days later.
+
+Central events: ["admitted to the hospital", "diagnosed with acne", "discharge"]
+
+**Example BSV Output:**
+event|central_event|relative_time|confidence
+18 years old|admitted to the hospital|0|9
+male|admitted to the hospital|0|9
+fever|admitted to the hospital|-72|8
+rash|admitted to the hospital|-72|8
+treatment with minocycline|diagnosed with acne|0|7
+increased WBC count|admitted to the hospital|0|5
+eosinophilia|admitted to the hospital|0|5
+systemic involvement|admitted to the hospital|0|5
+diffuse erythematous or maculopapular eruption|admitted to the hospital|0|5
+pruritis|admitted to the hospital|0|5
+DRESS syndrome|admitted to the hospital|0|5
+fever persisted|admitted to the hospital|0|7
+rash persisted|admitted to the hospital|0|7
+rash resolved|discharge|48|9
+
+**Central Events:**
+{central_events}
+
+**Case Report:**
+{discharge_summary}
+
+**Output Instructions:**
+1. First line must be the header: "event|central_event|relative_time|confidence"
+2. Each subsequent line contains one event with its temporal reference
+3. No empty lines
+4. No additional text or explanations
+5. All fields must be present for each row
+6. relative_time must be numeric (can be negative)
+7. confidence must be integer between 0-9
+
+**Required Fields:**
+- event: The non-central event text
+- central_event: The reference central event
+- relative_time: Hours difference from central event (negative before, positive after)
+- confidence: Certainty score (0-9)
+
+**Output:**

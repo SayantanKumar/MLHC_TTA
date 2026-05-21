@@ -1,0 +1,54 @@
+**Task:** Compute time distances between pairs of central events.
+For each pair, provide:
+- The two events (event1, event2)
+- The time difference ("e2_minus_e1" = event2 time - event1 time) in hours
+- A confidence score (1-9) in the certainty of this timing
+
+**Guidelines:**
+1. Admission event (if present) is at time zero
+2. If no admission event, use case presentation time as time zero
+3. Events before time zero have negative timestamps
+4. Events after time zero have positive timestamps
+5. Use your expert clinical judgment to approximate timing when not explicitly stated
+6. If exact timing cannot be determined, estimate a reasonable range
+7. Never return null/undefined for e2_minus_e1 - always provide a numeric estimate
+8. Confidence scores:
+   - 1-3: Low confidence (based only on indirect evidence)
+   - 4-6: Moderate confidence (some direct evidence available)
+   - 7-9: High confidence (explicit timing documentation)
+9. Low and medium confidence pairs may be omitted so long as each event has another pairing
+10. Only include central event pairs that have a mention indicating a direct temporal relation
+
+**Example Input:**
+An 18-year-old male was admitted to the hospital with a 3-day history of fever and rash. Four weeks ago, he was diagnosed with acne and received subsequent treatment with minocycline, 100 mg daily, for 3 weeks. With increased WBC count, eosinophilia, and systemic involvement, this patient was diagnosed with DRESS syndrome. The fever and rash persisted through admission, and diffuse erythematous or maculopapular eruption with pruritus was present. One day later the patient was discharged, and the rash resolved in another two days.
+
+Central events:
+admitted to the hospital
+diagnosed with acne
+discharged
+
+**Example BSV Output:**
+event1 | event2 | e2_minus_e1 | confidence
+admitted to the hospital | diagnosed with acne | -672 | 9
+discharged | admitted to the hospital | -24 | 9
+
+**Output Instructions:**
+1. Output must be in BSV (Bar-Separated Values) format
+2. First line must be the header: "event1|event2|e2_minus_e1|confidence"
+3. Each subsequent line contains one event pair
+4. No empty lines
+5. No additional text or explanations
+
+**Required Fields:**
+- event1: First event in pair
+- event2: Second event in pair
+- e2_minus_e1: Numeric value (event2 time - event1 time) in hours
+- confidence: Integer between 1-9
+
+**Central Events:**
+{central_events}
+
+**Case Report:**
+{discharge_summary}
+
+**Output:**

@@ -1,0 +1,33 @@
+**Task:** Extract all central (referent) events from the discharge summary.
+Events are findings or mentions about the individual that could involve or affect the health of the patient and that are temporally located.
+Central events are key to the patient's timeline including:
+- Events that other events are temporally referenced to
+
+**Guidelines:**
+- Use the original text span except for application of the contextual phrases such as perception time, "history of" when needed for the event to stand alone.
+- Separate conjunctive phrases into component events (e.g., "fever and rash" or "fever, rash" should be two events: "fever", "rash")
+- Contextual phrases may be reapplied across component events (e.g. "new onset of fever and rash" becomes "new onset of fever" and "new onset of rash")
+- For events with duration, use the start of the time interval as the event time.
+- Output must be in BSV (Bar-Separated Values) format with a single header line
+- Only include the BSV data - no additional text or explanations
+
+**Example Input:**
+An 18-year-old male was admitted to the hospital with a 3-day history of fever and rash. Four weeks ago, he was diagnosed with acne and received subsequent treatment with minocycline, 100 mg daily, for 3 weeks. With increased WBC count, eosinophilia, and systemic involvement, this patient was diagnosed with DRESS syndrome. The fever and rash persisted through admission, and diffuse erythematous or maculopapular eruption with pruritus was present. One day later the patient was discharged, and the rash resolved in another two days.
+
+**Example BSV Output:**
+event
+admitted to the hospital
+diagnosed with acne
+discharged
+
+**Discharge Summary:**
+{discharge_summary}
+
+**Output Instructions:**
+1. First line must be the header: "event"
+2. Each subsequent line contains one central event
+3. No empty lines
+4. No additional text or explanations
+5. Events should be in chronological order when possible
+
+**Output:**

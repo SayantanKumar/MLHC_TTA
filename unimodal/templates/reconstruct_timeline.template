@@ -1,0 +1,85 @@
+**Task:** Reconstruct the complete timeline with absolute times.
+- Admission event (if present) is at time zero
+- If no admission event, use case presentation time as time zero
+- For central events: use the provided central event pairing time distances with preference for pairing with high confidence and resolve as necessary using the context from the discharge summary
+- For non-central events: calculate absolute time by adding relative time to mapped central event's absolute time and resolve as necessary using the context from the discharge summary
+- Events before time zero have negative timestamps
+- Events after time zero have positive timestamps
+
+**Guidelines:**
+1. Use hours as the time unit
+2. Omit the unit from output (implied hours)
+3. For events with duration, use the start of the time interval
+4. Include **all** events (both central and non-central events)
+5. Cross-reference with original discharge summary for accurate timing
+6. Output must be in BSV (Bar-Separated Values) format
+7. No additional text or explanations - only the BSV data
+
+**Example Input:**
+An 18-year-old male was admitted to the hospital with a 3-day history of fever and rash. Four weeks ago, he was diagnosed with acne and received the treatment with minocycline, 100 mg daily, for 3 weeks. With increased WBC count, eosinophilia, and systemic involvement, this patient was diagnosed with DRESS syndrome. The fever and rash persisted through admission, and diffuse erythematous or maculopapular eruption with pruritus was present. One day later the patient was discharged, and the rash resolved two days later.
+
+Example central timeline file:
+event | time
+admitted to the hospital | 0
+diagnosed with acne | -672
+discharge | 24
+
+Example non-central events file:
+event|central_event|relative_time|confidence
+18 years old|admitted to the hospital|0|9
+male|admitted to the hospital|0|9
+fever|admitted to the hospital|-72|8
+rash|admitted to the hospital|-72|8
+treatment with minocycline|diagnosed with acne|0|7
+increased WBC count|admitted to the hospital|0|5
+eosinophilia|admitted to the hospital|0|5
+systemic involvement|admitted to the hospital|0|5
+diffuse erythematous or maculopapular eruption|admitted to the hospital|0|5
+pruritis|admitted to the hospital|0|5
+DRESS syndrome|admitted to the hospital|0|5
+fever persisted|admitted to the hospital|0|7
+rash persisted|admitted to the hospital|0|7
+rash resolved|discharge|48|9
+
+**Example BSV Output:**
+event|time
+18 years old|0
+male|0
+admitted to the hospital|0
+fever|-72
+rash|-72
+acne|-672
+minocycline|-672
+increased WBC count|0
+eosinophilia|0
+systemic involvement|0
+diffuse erythematous or maculopapular eruption|0
+pruritis|0
+DRESS syndrome|0
+fever persisted|0
+rash persisted|0
+discharged|24
+rash resolved|72
+
+**Original Discharge Summary:**
+{discharge_summary}
+
+**Central Timeline:**
+{central_timeline}
+
+**Non-Central Events:**
+{non_central_events}
+
+**Output Instructions:**
+1. First line must be the header: "event|time"
+2. Each subsequent line contains one event with its absolute time
+3. No empty lines
+4. No additional text or explanations
+5. All fields must be present for each row
+6. Time must be numeric (can be negative)
+
+**Required Fields:**
+- event: The event description
+- time: Absolute time in hours (negative before time zero, positive after)
+
+**Output:**
