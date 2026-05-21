@@ -31,6 +31,7 @@ code_github/
 ├── langgraph_scripts/     # Python runners, structured retrieval utilities, and Slurm launchers
 ├── compare_tts/           # Evaluation scripts for comparing predicted timelines to manual references
 ├── gap_detection/         # Auxiliary textual-tabular gap analysis and tests
+├── threshold_sweep.ipynb  # Notebook for inspecting metric behavior across event-match thresholds
 └── README.md              # This file
 ```
 
@@ -76,6 +77,8 @@ conda create -n tta python=3.10
 conda activate tta
 pip install langchain-community langchain-core requests pandas numpy torch transformers tqdm scikit-learn fastapi uvicorn pydantic
 ```
+
+No single environment file is included in this code release; the command above lists the main Python packages used across the workflow, evaluation, and gap-analysis scripts.
 
 For the R-based evaluation scripts:
 
@@ -252,6 +255,8 @@ pytest tests/
 ```
 
 The timeline reconstruction and evaluation scripts are workflow scripts and generally require local data paths, GPU resources, and an LLM endpoint to run end-to-end.
+
+The root-level `threshold_sweep.ipynb` is an analysis notebook for inspecting event-matching threshold behavior and should be treated as an exploratory companion to the `compare_tts/` evaluation scripts.
 
 ## Notes And Caveats
 
