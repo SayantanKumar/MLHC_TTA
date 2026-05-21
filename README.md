@@ -15,6 +15,20 @@ This repository contains the code for reconstructing absolute clinical timelines
 
 The method follows the study workflow from *Text Knows What, Tables Know When: Clinical Timeline Reconstruction via Retrieval-Augmented Multimodal Alignment*. It is evaluated on the i2m4 benchmark spanning MIMIC-III and MIMIC-IV notes and structured records.
 
+## Figures
+
+### Multimodal Alignment Motivation
+
+[![Textual ambiguity and tabular calibration overview](TTA-Overview-Figures.png)](TTA-Overview-Figures.pdf)
+
+This figure illustrates why text-only timeline reconstruction can recover clinically meaningful events while still leaving intermediate event timing ambiguous, and how structured EHR anchors can calibrate those text-derived events.
+
+### Model Workflow
+
+[![Multistep retrieval-augmented multimodal timeline reconstruction pipeline](TTA-Overview-Figure-Model.png)](TTA-Overview-Figure-Model.pdf)
+
+This figure summarizes the full study pipeline: central scaffold construction, retrieval-augmented calibration of central events, full timeline assembly, and final structured-EHR refinement.
+
 ### Key Contributions
 
 - **Multistep Timeline Reconstruction**: Decomposes timeline generation into central anchor extraction, central-event temporal graph construction, non-central event attachment, full timeline assembly, and final refinement.
@@ -31,7 +45,10 @@ code_github/
 ├── langgraph_scripts/     # Python runners, structured retrieval utilities, and Slurm launchers
 ├── compare_tts/           # Evaluation scripts for comparing predicted timelines to manual references
 ├── gap_detection/         # Auxiliary textual-tabular gap analysis and tests
+├── environment.yml        # Conda environment exported from the study runtime
 ├── threshold_sweep.ipynb  # Notebook for inspecting metric behavior across event-match thresholds
+├── TTA-Overview-*.pdf     # Paper overview figures
+├── TTA-Overview-*.png     # README-renderable previews of the overview figures
 └── README.md              # This file
 ```
 
@@ -73,12 +90,18 @@ All times are in hours relative to admission when admission is available. Events
 git clone <repo-url>
 cd code_github
 
-conda create -n tta python=3.10
-conda activate tta
-pip install langchain-community langchain-core requests pandas numpy torch transformers tqdm scikit-learn fastapi uvicorn pydantic
+conda env create -f environment.yml
+conda activate TTA
 ```
 
-No single environment file is included in this code release; the command above lists the main Python packages used across the workflow, evaluation, and gap-analysis scripts.
+`environment.yml` was exported from the study runtime and includes the original cluster path (`/data/kumars33/conda/envs/TTA`). For a portable local install, edit the top-level `name:` to a local environment name such as `tta` and remove the final `prefix:` line before creating the environment:
+
+```bash
+conda env create -f environment.yml
+conda activate tta
+```
+
+If you only need a lightweight environment for reading outputs or running selected utilities, the main Python packages are `langchain-community`, `langchain-core`, `requests`, `pandas`, `numpy`, `torch`, `transformers`, `tqdm`, `scikit-learn`, `fastapi`, `uvicorn`, and `pydantic`.
 
 For the R-based evaluation scripts:
 
@@ -278,4 +301,3 @@ If you use this code or build on this work, please cite:
   year={2026}
 }
 ```
-
