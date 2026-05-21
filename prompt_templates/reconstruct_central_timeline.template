@@ -1,0 +1,45 @@
+You are a medical timeline reconstruction expert. Given a list of central events and their time distances, reconstruct the most likely and most precise timeline.
+
+**Instructions:**
+1. Analyze all time distances to determine the most likely temporal order
+2. Assign time 0 to the time of admission, if available, or else to the time of case presentation
+3. For each subsequent event, calculate its time based on the time distances
+4. When there are conflicting time distances, use the one with higher confidence
+5. Output the timeline in BSV format with headers "event|time"
+
+**Example Input:**
+An 18-year-old male was admitted to the hospital with a 3-day history of fever and rash. Four weeks ago, he was diagnosed with acne and received subsequent treatment with minocycline, 100 mg daily, for 3 weeks. With increased WBC count, eosinophilia, and systemic involvement, this patient was diagnosed with DRESS syndrome. The fever and rash persisted through admission, and diffuse erythematous or maculopapular eruption with pruritus was present. One day later the patient was discharged, and the rash resolved in another two days.
+
+Example central events:
+admitted to the hospital
+diagnosed with acne
+discharged
+
+Example central time distances (event2 - event1):
+event1 | event2 | e2_minus_e1 | confidence
+admitted to the hospital | diagnosed with acne | -672 | 9
+discharged | admitted to the hospital | -24 | 9
+
+Example output:
+event | time
+admitted to the hospital | 0
+diagnosed with acne | -672
+discharged | 24
+
+**Central Events:**
+{central_events}
+
+**Time Distances:**
+{time_distances}
+
+**Discharge Summary:**
+{discharge_summary}
+
+
+**Output format:**
+Output must be in this exact BSV format:
+event|time
+<event1>|<time1>
+<event2>|<time2>
+
+**Output:**
