@@ -266,11 +266,11 @@ The timeline reconstruction and evaluation scripts are workflow scripts and gene
 If you use this code or build on this work, please cite:
 
 ```bibtex
-@misc{kumar2026textknows,
-  title = {Text Knows What, Tables Know When: Clinical Timeline Reconstruction via Retrieval-Augmented Multimodal Alignment},
-  author = {Kumar, Sayantan and Noroozizadeh, Shahriar and Kim, Juyong and Weiss, Jeremy C.},
-  year = {2026},
-  note = {Preprint under review}
+@article{kumar2026text,
+  title={Text Knows What, Tables Know When: Clinical Timeline Reconstruction via Retrieval-Augmented Multimodal Alignment},
+  author={Kumar, Sayantan and Noroozizadeh, Shahriar and Kim, Juyong and Weiss, Jeremy C},
+  journal={arXiv preprint arXiv:2605.15168},
+  year={2026}
 }
 ```
 
